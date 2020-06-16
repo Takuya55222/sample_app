@@ -13,4 +13,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # （すべてのテストで使うその他のヘルパーメソッドは省略）
+  #ApplicationHelperを追加→ApplicationHelperで定義したヘルパーが使えるようになる
+  include ApplicationHelper
 end
+
