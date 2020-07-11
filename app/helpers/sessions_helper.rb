@@ -26,15 +26,13 @@ module SessionsHelper
       end
     end
   end
-  
-    # current_userがいればuserを返すいなければnilを返す便利メソッド
-  def current_user
-    if session[:user_id]
-      User.find_by(id: session[:user_id])
-    # if無ければ毎回モデルに聞くため負担が増える
-      @current_user ||= User.find_by(id: session[:user_id])
-    end
+
+  # 渡されたユーザーがカレントユーザーであればtrueを返す
+  def current_user?(user)
+    user && user == current_user
   end
+  
+  
   
   # ユーザーがログインしていればtrue、その他ならfalseを返す
   def logged_in?
@@ -54,4 +52,27 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+    # 記憶したURL（もしくはデフォルト値）にリダイレクト
+    def redirect_back_or(default)
+      redirect_to(session[:forwarding_url] || default)
+      session.delete(:forwarding_url)
+    end
+  
+    # アクセスしようとしたURLを覚えておく
+    def store_location
+      session[:forwarding_url] = request.original_url if request.get?
+    end
+
+      # 記憶したURL（もしくはデフォルト値）にリダイレクト
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # アクセスしようとしたURLを覚えておく
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
 end
+
