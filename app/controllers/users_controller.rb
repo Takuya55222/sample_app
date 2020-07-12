@@ -19,9 +19,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end
@@ -48,11 +48,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
-    redirect_to users_url
-  end
+ 
 
   private
 
