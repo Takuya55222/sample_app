@@ -28,13 +28,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               email: email,
                                               password:              "",
                                               password_confirmation: "" } }
-    assert_not flash.empty?
-    assert_redirected_to @user
-    @user.reload
-    assert_equal name,  @user.name
-    assert_equal email, @user.email
-  end
-
+    end                                          
+                                              
   test "successful edit with friendly forwarding" do
     get edit_user_path(@user)
     log_in_as(@user)
@@ -45,10 +40,11 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               email: email,
                                               password:              "",
                                               password_confirmation: "" } }
-    assert_not flash.empty?
-    assert_redirected_to @user
-    @user.reload
-    assert_equal name,  @user.name
-    assert_equal email, @user.email
-  end
+                                              
+      assert_not flash.empty?
+      assert_redirected_to @user
+      @user.reload
+      assert_equal name,  @user.name
+      assert_equal email, @user.email
+    end  
 end

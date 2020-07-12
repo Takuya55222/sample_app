@@ -9,10 +9,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  # debugger
   end
-
   def new
     @user = User.new
+  
   end
 
   def create
@@ -38,6 +39,13 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  # DELETE /users/:id
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
   end
 
   def destroy

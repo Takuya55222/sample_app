@@ -14,4 +14,8 @@ User.create!(name:  "Example User",
                email: email,
                password:              password,
                password_confirmation: password)
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> b01c892cfc5675b9f2dc2488a8a72c709fd43898
